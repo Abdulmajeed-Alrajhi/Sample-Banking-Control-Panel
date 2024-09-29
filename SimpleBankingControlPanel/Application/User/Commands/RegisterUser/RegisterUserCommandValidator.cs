@@ -18,9 +18,6 @@ public class RegisterUserCommandValidator : AbstractValidator<RegisterUserComman
             .Matches(@"[0-9]+").WithMessage("Password must contain at least one number.")
             .Matches(@"[\!\?\*\.]+").WithMessage("Password must contain at least one (!? *.).");
 
-        RuleFor(x => x.Role)
-            .NotEmpty().WithMessage("Role is required.");
-
         RuleFor(x => x.FirstName)
             .NotEmpty().WithMessage("First name is required.")
             .MaximumLength(50).WithMessage("First name must not exceed 50 characters.");

@@ -36,11 +36,7 @@ public class
 
         if (result.Succeeded)
         {
-            if (!await _roleManager.RoleExistsAsync(request.Role))
-                await _roleManager.CreateAsync(new IdentityRole(request.Role));
-
-            await _userManager.AddToRoleAsync(user, request.Role);
-            return Result.Success();
+            await _userManager.AddToRoleAsync(user, "User");
         }
 
         return Result
