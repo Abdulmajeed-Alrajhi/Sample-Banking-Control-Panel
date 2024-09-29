@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SimpleBankingControlPanel.Application.User.Commands.Login;
+using SimpleBankingControlPanel.Application.User.Commands.RegisterUser;
 
 namespace SimpleBankingControlPanel.Controllers;
 
@@ -32,5 +33,19 @@ public class AuthController : ControllerBase
     {
         var result = await _mediator.Send(command);
         return Ok(result);
+    }
+
+    /// <summary>
+    /// Handles user registration requests.
+    /// </summary>
+    /// <param name="command">The registration command containing user details.</param>
+    /// <returns>An indicating the result of the registration operation.</returns>
+    [HttpPost("register")]
+    public async Task<IActionResult> Register([FromBody] RegisterUserCommand command)
+    {
+        var result = await _mediator.Send(command);
+        if (result.IsSuccess)
+            return Ok();
+        return BadRequest(result.Error);
     }
 }
