@@ -1,8 +1,6 @@
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimpleBankingControlPanel.Application.User.Commands.Login;
-using SimpleBankingControlPanel.Application.User.Commands.Logout;
 
 namespace SimpleBankingControlPanel.Controllers;
 
@@ -34,17 +32,5 @@ public class AuthController : ControllerBase
     {
         var result = await _mediator.Send(command);
         return Ok(result);
-    }
-
-    /// <summary>
-    /// Handles user logout requests.
-    /// </summary>
-    /// <returns>An <see cref="IActionResult"/> indicating the result of the logout operation.</returns>
-    [HttpPost("logout")]
-    [Authorize]
-    public async Task<IActionResult> Logout()
-    {
-        await _mediator.Send(new LogoutCommand());
-        return Ok(new { message = "Logged out successfully" });
     }
 }
