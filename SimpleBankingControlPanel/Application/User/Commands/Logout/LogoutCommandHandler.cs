@@ -12,14 +12,8 @@ public class LogoutCommandHandler : IRequestHandler<LogoutCommand>
         _signInManager = signInManager;
     }
 
-    Task IRequestHandler<LogoutCommand>.Handle(LogoutCommand request, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<Unit> Handle(LogoutCommand request, CancellationToken cancellationToken)
+    public async Task Handle(LogoutCommand request, CancellationToken cancellationToken)
     {
         await _signInManager.SignOutAsync();
-        return Unit.Value;
     }
 }
