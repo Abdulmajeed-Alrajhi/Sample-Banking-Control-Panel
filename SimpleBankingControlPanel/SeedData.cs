@@ -15,6 +15,7 @@ public static class SeedData
         const string adminPassword = "ComplexPassword123!";
 
         if (!roleManager.RoleExistsAsync("Admin").Result) await roleManager.CreateAsync(new IdentityRole("Admin"));
+        if (!roleManager.RoleExistsAsync("User").Result) await roleManager.CreateAsync(new IdentityRole("User"));
 
         if (userManager.FindByEmailAsync(adminEmail).Result == null)
         {
