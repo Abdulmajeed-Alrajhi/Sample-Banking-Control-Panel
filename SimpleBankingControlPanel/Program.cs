@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -35,7 +36,7 @@ public class Program
 
         app.MapControllers();
 
-        SeedData.EnsureSeedData(app.Services);
+        _ = SeedData.EnsureSeedData(app.Services);
 
         app.Run();
     }
@@ -70,7 +71,12 @@ public class Program
                 };
             });
 
-        services.AddControllers();
+        services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
+        
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
